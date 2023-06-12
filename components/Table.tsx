@@ -1,5 +1,5 @@
-'use client'
-import { SetStateAction, JSXElementConstructor, Key, PromiseLikeOfReactNode, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from 'react'
+// 'use client'
+import { useEffect, useState } from 'react'
 import '@/app/globals.css'
 import Card from '@/components/Card'
 
@@ -49,7 +49,7 @@ function Table({data}: any) {
 
           <tbody className='border'>
               {
-                data.filter((i: { name: string; })=> i.name.toLowerCase().includes(search.toLocaleLowerCase())).map((item: { id: number; name: string; email: string; phone: string; age: number; gpa: number; pic?: string }) => (
+                data && data.filter((i: { name: string; })=> i.name.toLowerCase().includes(search.toLocaleLowerCase())).map((item: { id: number; name: string; email: string; phone: string; age: number; gpa: number; pic?: string }) => (
                   <tr key={item.id} 
                       className='border hover:bg-gray-900 cursor-default'
                       onClick={handleRowClick}
@@ -62,6 +62,7 @@ function Table({data}: any) {
                     {gpa && <td className='w-auto px-2 border'>{item.gpa} </td>}
                   </tr>
                 ))
+                
               }
 
           </tbody>
