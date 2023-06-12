@@ -1,8 +1,9 @@
 'use client'
 
+
 import { useEffect, useState } from "react"
 
-const Card = ({detail, id}) => {
+const Card = ({detail, id}: any) => {
     const [showInfo, setShowInfo] = useState(false)
 
     useEffect(()=>{

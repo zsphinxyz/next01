@@ -1,9 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { SetStateAction, JSXElementConstructor, Key, PromiseLikeOfReactNode, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from 'react'
 import '@/app/globals.css'
 import Card from '@/components/Card'
 
-function Table({data}) {
+function Table({data}: any) {
   const [search, setSearch] = useState('')
   const [id, setID] = useState(0)
   const [pic, setPic] = useState('')
@@ -11,7 +11,7 @@ function Table({data}) {
   const [age, setAge] = useState(false)
   const [gpa, setGpa] = useState(false)
 
-  function handleRowClick(e) {
+  function handleRowClick(e: any) {
     setID(e.currentTarget.innerText.replace(/\s+/g, ',').split(',')[0]);
   }
 
@@ -49,7 +49,7 @@ function Table({data}) {
 
           <tbody className='border'>
               {
-                data.filter(i=> i.name.toLowerCase().includes(search.toLocaleLowerCase())).map((item) => (
+                data.filter((i: { name: string; })=> i.name.toLowerCase().includes(search.toLocaleLowerCase())).map((item: { id: number; name: string; email: string; phone: string; age: number; gpa: number; pic?: string }) => (
                   <tr key={item.id} 
                       className='border hover:bg-gray-900 cursor-default'
                       onClick={handleRowClick}
