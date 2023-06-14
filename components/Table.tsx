@@ -19,19 +19,24 @@ function Table({data}: any) {
     setDetail(data[id-1])
   }, [id])
 
+  const style_checkbox = "ml-4 p-1"
+
   return (
     <div>
 
       <input  type="text" 
               placeholder='🔎Search...' 
-              className='inline-block mx-4 w-1/2 px-4 py-1 rounded bg-gray-100 text-black lowercase'
+              className='inline-block mx-4 w-1/2 min-w-md px-4 py-1 rounded bg-gray-100 text-black lowercase'
               onChange={e => setSearch(e.target.value)}
-      />
+      /> <br />
       <input  type="checkbox" 
               onChange={e=>setAge(!age)}
+              className={style_checkbox}
       /> Age 
       <input  type="checkbox" 
               onChange={e=>setGpa(!gpa)}
+              className={style_checkbox}
+
       /> GPA 
 
       <div className='flex'>
@@ -71,10 +76,7 @@ function Table({data}: any) {
       <Card detail={detail} id={id}/>
 
       </div>
-
-
     </div>
-
   )
 }
 

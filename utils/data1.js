@@ -1,4 +1,4 @@
-export const year1 = [{
+export const data1 = [{
     "id": 1,
     "name": "Luelle",
     "email": "lboseley0@dmoz.org",
