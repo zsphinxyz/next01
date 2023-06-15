@@ -5,7 +5,7 @@ import {data2} from '@/utils/data2'
 import {data3} from '@/utils/data3'
 import { useState } from 'react'
 
-const index = () => {
+const Index = () => {
   const [data, setData] = useState('0')
   let allData = [data1, data2, data3]
   
@@ -26,4 +26,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index
