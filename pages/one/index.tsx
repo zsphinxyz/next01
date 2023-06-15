@@ -19,7 +19,6 @@ const Index = () => {
         <option value='1'>Data 2</option>
         <option value='2'>Data 3</option>
       </select>
-      <h1>{data}</h1>
         <h1 className='text-center text-2xl font-bold'> Data {parseInt(data)+1} </h1>
         <Table data={allData[parseInt(data)]}/>
     </div>
