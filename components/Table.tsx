@@ -1,4 +1,3 @@
-// 'use client'
 import { useEffect, useState } from 'react'
 import '@/app/globals.css'
 import Card from '@/components/Card'
