@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 export default function Att() {
 	const [year, setYear] = useState('nursery');
 	const [room, setRoom] = useState<number[]>([]);
+	let c = 0;
+
 	useEffect(()=>{
    yearData.map(i => (
 		i.year == year && setRoom(i.room)
@@ -35,11 +37,12 @@ export default function Att() {
 		}
 	  </select>
 
-
+		<br />
 		{
 			room.map(i => (
 			<>
-				<input type='checkbox' /> {i}
+				<input type='checkbox' /> Room: {i}
+		
 			</>
 			))
 		}
@@ -52,24 +55,43 @@ export default function Att() {
 		<thead>
 		 <tr>
 			<th>ID</th>
+			<th>No</th>
 			<th>Name</th>
 		</tr>
 		</thead>
 
 		<tbody>
 
+
 		 {
- 			data.filter(j => (j.year.toString() == year)).map((i) => (
+ 			data.filter(j => (j.year.toString() == year)).map((i) => {
+			c++;
+			return(
 		<tr key={i.id}>
 			<td className="border">
 				{i.id}
 			</td>
+				<td className='border'>{c}</td>
 				<td className='border'>
 				 {i.name}
 				</td>
 		</tr>
-			))
+			)})
+
+			
 		 } 
+
+
+
+
+
+
+
+
+
+
+
+
 
 		</tbody>
 		</table>
