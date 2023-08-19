@@ -12,6 +12,7 @@ export default function Att() {
 		i.year == year && setRoom(i.room)
 	 ))
 	}, [year])
+
 	
 	return(
 		<div>
@@ -44,7 +45,7 @@ export default function Att() {
 		}
 		
 		</div>
-		<h1>Year: {year}, Room {room.toString()}</h1>
+		<h1>Year: {year}, Room: {room.toString()}</h1>
 		
 		<table>
 		
@@ -58,7 +59,7 @@ export default function Att() {
 		<tbody>
 
 		 {
- 			data.map((i) => (
+ 			data.filter(j => (j.year.toString() == year)).map((i) => (
 		<tr key={i.id}>
 			<td className="border">
 				{i.id}
