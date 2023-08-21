@@ -5,14 +5,16 @@ import yearData from '@/utils/year.json'
 import { useEffect, useState } from 'react';
 
 export default function Att() {
-	const [year, setYear] = useState('nursery');
+	const [year, setYear] = useState('Nursery');
 	const [room, setRoom] = useState<number[]>([]);
+	const [r, setR] = useState<string[]>([]);
 	let c = 0;
 
 	useEffect(()=>{
    yearData.map(i => (
 		i.year == year && setRoom(i.room)
 	 ))
+	 setR([])
 	}, [year])
 
 	
@@ -31,7 +33,7 @@ export default function Att() {
 			yearData.map((i) => (
 				<option key={i.year} 
 						  value={i.year} >
-					{i.year}
+					{['Nursery','Reception'].includes(i.year) ? i.year : 'Year '+i.year}
 				</option>	
 			))
 		}
@@ -41,14 +43,19 @@ export default function Att() {
 		{
 			room.map(i => (
 			<>
-				<input type='checkbox' /> Room: {i}
+				<input type='checkbox'
+					key={i}
+					id={i.toString()}
+					onChange={(e)=>e.target.checked ? setR([e.target.id]) : setR([])}  />
+					R-{i}
 		
+		{console.log(r)}
 			</>
 			))
 		}
-		
+	   The type of R: {r} ({typeof(r)})	
 		</div>
-		<h1>Year: {year}, Room: {room.toString()}</h1>
+		<h1>Year {year}, Room: {room.toString()}</h1>
 		
 		<table>
 		

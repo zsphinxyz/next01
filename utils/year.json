@@ -1,10 +1,10 @@
 [
 	{
-		"year":"nursery",
+		"year":"Nursery",
 		"room": []
 	},
 	{
-		"year":"rec",
+		"year":"Reception",
 		"room": [1,2]
 	},
 	{
@@ -17,7 +17,7 @@
 	},
 	{
 		"year":"3",
-		"room": [1,2,3,4,5]
+		"room": [1,2,3]
 	},
 	{
 		"year":"4",
