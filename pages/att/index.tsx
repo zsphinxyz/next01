@@ -7,28 +7,38 @@ import { useEffect, useState } from 'react';
 export default function Att() {
 	const [year, setYear] = useState('Nursery');
 	const [room, setRoom] = useState<number[]>([]);
-	const [r, setR] = useState<string[]>([]);
+	const [r, setR] = useState('');
 	let c = 0;
 
 	useEffect(()=>{
    yearData.map(i => (
 		i.year == year && setRoom(i.room)
 	 ))
-	 setR([])
+	 setR('')
 	}, [year])
 
+	const handleInput = (e:any) => {
+		e.target.checked ? 
+		setR(
+			(a) => e.target.id + a
+		) : 
+		setR(
+			r.replace(e.target.id, '')
+		)
+		}
 	
 	return(
 		<div>
-	  { /* Controls for table*/}
+	  {/* Controls for table */}
 		<div>
 
 	<select onChange={e=>{
 		setYear(e.target.value)
-	
 		}}
 					className="p-2 bg-teal-500 text-black"
 	>
+
+		<option value='all'> All </option>	
 		{
 			yearData.map((i) => (
 				<option key={i.year} 
@@ -46,22 +56,21 @@ export default function Att() {
 				<input type='checkbox'
 					key={i}
 					id={i.toString()}
-					onChange={(e)=>e.target.checked ? setR([e.target.id]) : setR([])}  />
+					onChange={handleInput}
+					/>
 					R-{i}
-		
-		{console.log(r)}
 			</>
 			))
-		}
-	   The type of R: {r} ({typeof(r)})	
+		} 
+		<br />
+
 		</div>
-		<h1>Year {year}, Room: {room.toString()}</h1>
+		<h1>Year {year}, Room: {r.toString()}</h1>
 		
 		<table>
 		
 		<thead>
 		 <tr>
-			<th>ID</th>
 			<th>No</th>
 			<th>Name</th>
 		</tr>
@@ -71,17 +80,14 @@ export default function Att() {
 
 
 		 {
- 			data.filter(j => (j.year.toString() == year)).map((i) => {
+ 			data.filter(j => (j.year.toString() == year && r.concat('0').includes(j.room.toString()) ))
+					.map((i) => {
+
 			c++;
 			return(
 		<tr key={i.id}>
-			<td className="border">
-				{i.id}
-			</td>
 				<td className='border'>{c}</td>
-				<td className='border'>
-				 {i.name}
-				</td>
+				<td className='border'> {i.name} </td>
 		</tr>
 			)})
 
