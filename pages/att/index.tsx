@@ -5,20 +5,12 @@ import yearData from '@/utils/year.json'
 import { useEffect, useState } from 'react';
 
 
-const TableRow = (c:number, name:string, id:number) => {
-	return(
-
-		<tr key={id}>
-				<td className='border'>{c}</td>
-				<td className='border'> {name} </td>
-		</tr>
-	)
-}
-
 export default function Att() {
 	const [year, setYear] = useState('all');
 	const [room, setRoom] = useState<number[]>([]);
 	const [r, setR] = useState('');
+	const [search, setSearch] = useState('')
+
 	let c = 0;
 
 	useEffect(()=>{
@@ -26,6 +18,7 @@ export default function Att() {
 		i.year == year && setRoom(i.room)
 	 ))
 	 setR('')
+	 setSearch('')
 	}, [year])
 
 	const handleInput = (e:any) => {
@@ -77,7 +70,15 @@ export default function Att() {
 
 		</div>
 		<h1>Year {year}, Room: {r.toString()}</h1>
-		
+
+		<input 
+			placeholder='Search' 
+			onChange={(e)=>setSearch(e.target.value)}
+			className="text-black"
+			value={search}
+		/>
+		<br />
+		&gt;&gt; {search}
 		<table>
 		
 		<thead>
@@ -91,7 +92,13 @@ export default function Att() {
 
 
 		 {
-		 data.filter(j => year=='all' ? j.year : (j.year.toString() == year && r.concat('0').includes(j.room.toString()) ))
+		 data.filter(j => year=='all' ?
+		 			j.year :
+					(j.year.toString() == year && r.concat('0').includes(j.room.toString()) ))
+					.filter(s => search.length !=0 ?
+					s.name.toLowerCase().includes(search.toLowerCase()) :
+					s.name
+					)
 					.map((i) => {
 
 			c++;
