@@ -2,7 +2,8 @@ import '@/app/globals.css'
 import data from '@/utils/data.json'
 import yearData from '@/utils/year.json'
 
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import ReactToPrint from "react-to-print"
 
 
 export default function Att() {
@@ -11,6 +12,9 @@ export default function Att() {
 	const [r, setR] = useState('1');
 	const [search, setSearch] = useState('')
 	const [yearcol, setYearcol] = useState(false)
+	const [empty, setEmpty] = useState(false)
+	
+	const printRef = useRef(null)
 
 	let c = 0;
 
@@ -53,11 +57,23 @@ export default function Att() {
 			))
 		}
 	  </select>
+		<label>
 		<input 	type='checkbox' 
 						checked={yearcol}
 						className="ml-8"
 						onChange={() => setYearcol(!yearcol)}
-		/> Add Room Colum
+		/> Add Room Column
+	</label>
+
+	<label>
+		<input 
+				type='checkbox'
+				checked={empty}
+				onChange={ () => setEmpty(!empty) }
+		/>
+		Empty columns
+	</label>
+
 		<br />
 		{
 			room.map(i => (
@@ -74,7 +90,6 @@ export default function Att() {
 		<br />
 
 		</div>
-		<h1>Year {year}, Room: {r.toString()}</h1>
 
 		<input 
 			placeholder='Search' 
@@ -82,11 +97,28 @@ export default function Att() {
 			className="text-black"
 			value={search}
 		/>
-		<br />
-		&gt;&gt; {search}
 
-		<table className='font-serif'>
-		
+		<ReactToPrint
+			trigger = {
+				() => (
+					<button className='px-3 ml-3 bg-slate-300 text-black'>Print</button>
+				)}
+			content={()=>printRef.current}
+			documentTitle="Students List"
+			pageStyle="print"
+		/>
+
+		<br />
+		// print layout
+		<div 
+		ref={printRef}
+		className='w-fit border-green-200 p-2'>
+
+		<h1 className="font-bold text-xl pl-5">
+			Year {year}, Room({r.split('').sort().join()})
+		</h1>
+
+		<table className='font-serif font-[12px]'>
 		<thead>
 		 <tr>
 			<th className="border">No</th>
@@ -95,6 +127,17 @@ export default function Att() {
 				yearcol &&
 				<th className="border px-2">Year (Room)</th>
 			}
+			
+		{ empty && (
+		<>
+		<th className="border min-w-[100px]"></th>
+		<th className="border min-w-[100px]"></th>
+		<th className="border min-w-[100px]"></th>
+		<th className="border min-w-[100px]"></th>
+		<th className="border min-w-[100px]"></th>
+		</>)
+		}
+			
 		</tr>
 		</thead>
 
@@ -120,26 +163,26 @@ export default function Att() {
 					yearcol &&
 					<td className='border px-2 min-w-fit'>{i.year} ({i.room})</td>
 				}
+		{
+		empty && (
+			<>
+				<td className="border"> </td>
+				<td className="border"> </td>
+				<td className="border"> </td>
+				<td className="border"> </td>
+				<td className="border"> </td>
+			</>
+		)
+		}
 		</tr>
 			)})
 
-			
 		 } 
-
-
-
-
-
-
-
-
-
-
-
 
 
 		</tbody>
 		</table>
+		</div>
 		</div>
 	)
 
