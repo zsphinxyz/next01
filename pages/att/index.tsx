@@ -44,19 +44,20 @@ export default function Att() {
 	<select onChange={e=>{
 		setYear(e.target.value)
 		}}
-					className="p-2 bg-teal-500 text-black"
+		className="p-2 bg-teal-500 text-black bold"
 	>
 
 		<option value='all'> All </option>	
 		{
 			yearData.map((i) => (
 				<option key={i.year} 
-						  value={i.year} >
+					value={i.year} >
 					{['Nursery','Reception'].includes(i.year) ? i.year : 'Year '+i.year}
 				</option>	
 			))
 		}
 	  </select>
+
 		<label>
 		<input 	type='checkbox' 
 						checked={yearcol}
@@ -117,23 +118,23 @@ export default function Att() {
 			Year {year}, Room({r.split('').sort().join()})
 		</h1>
 
-		<table className='font-serif font-[12px]'>
+		<table className='font-serif font-[12px] whitespace-nowrap '>
 		<thead>
 		 <tr>
-			<th className="border">No</th>
-			<th className="border">Name</th>
+			<th className="border border-black">No</th>
+			<th className="border border-black">Name</th>
 			{
 				yearcol &&
-				<th className="border px-2">Year (Room)</th>
+				<th className="border border-black px-2">Year (Room)</th>
 			}
 			
 		{ empty && (
 		<>
-		<th className="border min-w-[100px]"></th>
-		<th className="border min-w-[100px]"></th>
-		<th className="border min-w-[100px]"></th>
-		<th className="border min-w-[100px]"></th>
-		<th className="border min-w-[100px]"></th>
+		<th className="border border-black min-w-[75px]"></th>
+		<th className="border border-black min-w-[75px]"></th>
+		<th className="border border-black min-w-[75px]"></th>
+		<th className="border border-black min-w-[75px]"></th>
+		<th className="border border-black min-w-[75px]"></th>
 		</>)
 		}
 			
@@ -156,20 +157,20 @@ export default function Att() {
 			c++;
 			return(
 		<tr key={i.id}>
-				<td className='border px-2'>{c}</td>
-				<td className='border px-2'> {i.name} </td>
+				<td className='border border-black px-2'>{c}</td>
+				<td className='border border-black px-2'> {i.name} </td>
 				{
 					yearcol &&
-					<td className='border px-2 min-w-fit'>{i.year} ({i.room})</td>
+					<td className='border border-black px-2 min-w-fit'>{i.year} ({i.room})</td>
 				}
 		{
 		empty && (
 			<>
-				<td className="border"> </td>
-				<td className="border"> </td>
-				<td className="border"> </td>
-				<td className="border"> </td>
-				<td className="border"> </td>
+				<td className="border border-black"> </td>
+				<td className="border border-black"> </td>
+				<td className="border border-black"> </td>
+				<td className="border border-black"> </td>
+				<td className="border border-black"> </td>
 			</>
 		)
 		}
