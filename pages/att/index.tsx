@@ -109,7 +109,6 @@ export default function Att() {
 		/>
 
 		<br />
-		// print layout
 		<div 
 		ref={printRef}
 		className='w-fit border-green-200 p-2'>
