@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <main className="flex min-w-screen min-h-screen">
+    <main className="flex min-w-screen min-h-screen items-center justify-center flex-col">
      <p className='text-sm'>Home</p>
     <span className="text-4xl font-black text-gray-300">PAGE</span> 
     <div className="flex flex-col">
