@@ -4,6 +4,9 @@ import yearData from '@/utils/year.json'
 
 import {SiGoogleclassroom} from 'react-icons/si';
 import {BsGrid3X3} from 'react-icons/bs';
+import {TiInfoLargeOutline} from 'react-icons/ti';
+import {AiFillPrinter} from 'react-icons/ai';
+
 
 import { useRef, useEffect, useState } from 'react';
 import ReactToPrint from "react-to-print"
@@ -44,24 +47,27 @@ export default function Att() {
 
 	  {/* Controls for table */}
 		<div className='select-none bg-slate-700 p-5'>
+
 			{/* Control for upper row */}
 		<div className='flex items-center'>
 			<select onChange={e=>{
 				setYear(e.target.value)
 				}}
-				className="p-2 bg-slate-300 text-black bold"
+				className="p-2 bg-slate-300 text-black bold outline-none"
 			>
 				{
 					yearData.map((i) => (
 						<option key={i.year} 
-							value={i.year} >
+							value={i.year} 
+							className='hover:bg-green-300 '
+						>
 							{['Nursery','Reception', 'All'].includes(i.year) ? i.year : 'Year '+i.year}
 						</option>	
 					))
 				}
 			</select>
 
-		<label className={`bg-slate-300 p-1 rounded-sm ml-2 ${yearcol && 'bg-green-200'}`}>
+		<label className={`bg-slate-300 p-1 rounded-sm ml-2 ${yearcol && 'bg-green-300'}`}>
 		<input 	type='checkbox' 
 				checked={yearcol}
 				className=" appearance-none peer"
@@ -70,7 +76,7 @@ export default function Att() {
 		<SiGoogleclassroom className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
 	</label>
 
-	<label className={`bg-slate-300 p-1 rounded-sm ml-2 ${empty && 'bg-green-200'}`}>
+	<label className={`bg-slate-300 p-1 rounded-sm ml-2 ${empty && 'bg-green-300'}`}>
 		<input 
 			type='checkbox'
 			checked={empty}
@@ -79,6 +85,11 @@ export default function Att() {
 		/>
 		<BsGrid3X3  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700' /> 
 	</label>
+
+	<input type="number" className='w-10 ml-2 outline-none bg-slate-300 h-8 p-1 rounded-sm' />
+	<input type="range" min='1' max='100' />
+
+
 	</div> {/* upper contol row ends */}
 
 
@@ -102,27 +113,37 @@ export default function Att() {
 
 			
 			{/* bottom contol row starts */}
-			<div>
+			<div className='flex items-center'>
 			<input 
 				placeholder='Search' 
 				onChange={(e)=>setSearch(e.target.value)}
-				className="text-black"
+				className="text-black outline-none pl-2 py-1 bg-slate-300"
 				value={search}
-				/>
+			/>
 
 			<ReactToPrint
 				trigger = {
 					() => (
-						<button className='px-3 ml-3 bg-slate-300 text-black'>Print</button>
+						<button className=' ml-2 bg-slate-300 h-[32px] '>
+							<AiFillPrinter className='w-full text-xl px-2'/>
+						</button>
 						)}
 						content={()=>printRef.current}
 						documentTitle="Students List"
 						pageStyle="print"
-						/>
+			/>
 			
 			</div> {/* bottwm control row ends */}
 
 		</div>	{/* end of table contol */}
+
+		<div className='p-2 py-1 bg-stone-400'> {/* Start Info bar */}
+			<p>
+				<TiInfoLargeOutline className='inline text-xl border border-black rounded-full mr-2'/>
+				Year: {year}, &nbsp;
+				{room.length} Rooms, &nbsp;
+			</p>
+		</div> {/* End Info bar */}
 
 		<div 
 		ref={printRef}
