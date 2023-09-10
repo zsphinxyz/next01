@@ -6,6 +6,8 @@ import {SiGoogleclassroom} from 'react-icons/si';
 import {BsGrid3X3} from 'react-icons/bs';
 import {TiInfoLargeOutline} from 'react-icons/ti';
 import {AiFillPrinter} from 'react-icons/ai';
+import {TbColumnInsertRight} from 'react-icons/tb';
+import {AiOutlineColumnWidth} from 'react-icons/ai';
 
 
 import { useRef, useEffect, useState } from 'react';
@@ -13,16 +15,26 @@ import ReactToPrint from "react-to-print"
 
 
 export default function Att() {
-	const [year, setYear] = useState('All');
-	const [room, setRoom] = useState<number[]>([]);
-	const [r, setR] = useState('1');
-	const [search, setSearch] = useState('')
-	const [yearcol, setYearcol] = useState(false)
-	const [empty, setEmpty] = useState(false)
+	const [year, setYear] = useState('All');			// dropdown selection
+	const [room, setRoom] = useState<number[]>([]);		// total in current year
+	const [r, setR] = useState('1');					// show checked room in table of current year
+	const [search, setSearch] = useState('');			// search box
+	const [yearcol, setYearcol] = useState(false);		// add year(room) column
+	const [empty, setEmpty] = useState(false);			// add empty columns
+	const [cols, setCols] = useState(5); 				// number of columns
+	const [colRef, setColRef] = useState<number[]>([])	// col array
+	const [colWidth, setColWidth] = useState(80)		// width of empty columns
 	
-	const printRef = useRef(null)
+	const printRef = useRef(null);
 
 	let c = 0;
+	let arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+
+	useEffect(() => {
+		for (let i = 1; i < arr.length; i++) {
+			setColRef([...arr.slice(0, cols)])
+		}
+	}, [cols])
 
 	useEffect(()=>{
    		yearData.map(i => (
@@ -43,13 +55,13 @@ export default function Att() {
 		}
 	
 	return(
-		<div >
+		<div>
 
 	  {/* Controls for table */}
 		<div className='select-none bg-slate-700 p-5'>
 
 			{/* Control for upper row */}
-		<div className='flex items-center'>
+		<div className='flex items-center gap-2'>
 			<select onChange={e=>{
 				setYear(e.target.value)
 				}}
@@ -67,7 +79,7 @@ export default function Att() {
 				}
 			</select>
 
-		<label className={`bg-slate-300 p-1 rounded-sm ml-2 ${yearcol && 'bg-green-300'}`}>
+		<label className={`bg-slate-300 p-1 rounded-sm ${yearcol && 'bg-green-300'}`}>
 		<input 	type='checkbox' 
 				checked={yearcol}
 				className=" appearance-none peer"
@@ -76,18 +88,26 @@ export default function Att() {
 		<SiGoogleclassroom className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
 	</label>
 
-	<label className={`bg-slate-300 p-1 rounded-sm ml-2 ${empty && 'bg-green-300'}`}>
+	<label className={`bg-slate-300 p-1 rounded-sm ${empty && 'bg-green-300'}`}>
 		<input 
 			type='checkbox'
 			checked={empty}
 			className='appearance-none peer'
 			onChange={ () => setEmpty(!empty) }
 		/>
-		<BsGrid3X3  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700' /> 
+		<BsGrid3X3  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
 	</label>
 
-	<input type="number" className='w-10 ml-2 outline-none bg-slate-300 h-8 p-1 rounded-sm' />
-	<input type="range" min='1' max='100' />
+	<label className='bg-slate-300 rounded-sm pr-1'>
+		<TbColumnInsertRight className=' inline-block  text-2xl h-8' />
+		<input type="number" min='0' max='25' className='outline-none bg-transparent w-7 h-8 text-right ' value={cols} onChange={e => setCols(parseInt(e.target.value))}/>
+	</label>
+	
+	<label className='bg-slate-300 rounded-sm pr-1'>
+		<AiOutlineColumnWidth className=' inline-block  text-2xl h-8' />
+		<input type="number" min='10' max='200' className='outline-none bg-transparent w-7 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
+	</label>
+
 
 
 	</div> {/* upper contol row ends */}
@@ -140,8 +160,10 @@ export default function Att() {
 		<div className='p-2 py-1 bg-stone-400'> {/* Start Info bar */}
 			<p>
 				<TiInfoLargeOutline className='inline text-xl border border-black rounded-full mr-2'/>
-				Year: {year}, &nbsp;
-				{room.length} Rooms, &nbsp;
+				Year: {year} | &nbsp;
+				{room.length} Rooms | &nbsp;
+				{cols} Columns |  &nbsp;
+				{colRef.length} array
 			</p>
 		</div> {/* End Info bar */}
 
@@ -153,7 +175,7 @@ export default function Att() {
 			{year == 'All' ?  'All' : `Year ${year}, Room(${r.split('').sort().join()})` } 
 		</h1> 
 
- 		<table className='font-serif font-[12px] whitespace-nowrap '>
+ 		<table className='font-serif font-[12px] whitespace-nowrap cursor-default'>
 		<thead>
 		 <tr>
 			<th className="border border-black">No</th>
@@ -162,22 +184,20 @@ export default function Att() {
 				yearcol &&
 				<th className="border border-black px-2">Year (Room)</th>
 			}
-			
-		{ empty && (
-		<>
-		<th className="border border-black min-w-[75px]"></th>
-		<th className="border border-black min-w-[75px]"></th>
-		<th className="border border-black min-w-[75px]"></th>
-		<th className="border border-black min-w-[75px]"></th>
-		<th className="border border-black min-w-[75px]"></th>
-		</>)
-		}
+
+			{
+			empty && (
+				<>
+					{colRef.map(i => (
+						<th key={i} className='border border-black' style={{minWidth: colWidth}}></th>
+					))}
+				</>
+			)}
 			
 		</tr>
 		</thead>
 
 		<tbody>
-
 
 		 {
 		 data.filter(j => year=='All' ?
@@ -188,30 +208,25 @@ export default function Att() {
 					s.name
 					)
 					.map((i) => {
-
-			c++;
-			return(
-		<tr key={i.id}>
-				<td className='border border-black px-2'>{c}</td>
-				<td className='border border-black px-2'> {i.name} </td>
-				{
-					yearcol &&
-					<td className='border border-black px-2 min-w-fit'>{i.year} ({i.room})</td>
-				}
-		{
-		empty && (
-			<>
-				<td className="border border-black"> </td>
-				<td className="border border-black"> </td>
-				<td className="border border-black"> </td>
-				<td className="border border-black"> </td>
-				<td className="border border-black"> </td>
-			</>
-		)
-		}
-		</tr>
+						c++;
+						return(
+							<tr key={i.id}>
+								<td className='border border-black px-2 resize-x'>{c}</td>
+								<td className='border border-black px-2 resize-x'> {i.name} </td>
+								{
+									yearcol &&
+									<td className='border border-black px-2 min-w-fit'>{i.year} ({i.room})</td>
+								}
+								{
+								empty && (
+									<>
+										{colRef.map(i => (
+											<td key={i} className="border border-black"></td>
+										))}
+									</>
+								)}
+							</tr>
 			)})
-
 		 } 
 
 
