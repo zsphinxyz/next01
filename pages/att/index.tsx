@@ -137,14 +137,14 @@ export default function Att() {
 			<input 
 				placeholder='Search' 
 				onChange={(e)=>setSearch(e.target.value)}
-				className="text-black outline-none pl-2 py-1 bg-slate-300"
+				className="text-black outline-none pl-2 py-1 bg-slate-300 focus:bg-slate-400"
 				value={search}
 			/>
 
 			<ReactToPrint
 				trigger = {
 					() => (
-						<button className=' ml-2 bg-slate-300 h-[32px] '>
+						<button className='ml-2 bg-slate-300 h-[32px] hover:bg-slate-400 transition '>
 							<AiFillPrinter className='w-full text-xl px-2'/>
 						</button>
 						)}
@@ -153,7 +153,7 @@ export default function Att() {
 						pageStyle="print"
 			/>
 			
-			</div> {/* bottwm control row ends */}
+			</div> {/* bottom control row ends */}
 
 		</div>	{/* end of table contol */}
 
@@ -162,8 +162,6 @@ export default function Att() {
 				<TiInfoLargeOutline className='inline text-xl border border-black rounded-full mr-2'/>
 				Year: {year} | &nbsp;
 				{room.length} Rooms | &nbsp;
-				{cols} Columns |  &nbsp;
-				{colRef.length} array
 			</p>
 		</div> {/* End Info bar */}
 
@@ -226,7 +224,8 @@ export default function Att() {
 									</>
 								)}
 							</tr>
-			)})
+						)
+					})
 		 } 
 
 
