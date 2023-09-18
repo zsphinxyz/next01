@@ -4,7 +4,7 @@ import data from '@/utils/data.json'
 import yearData from '@/utils/year.json'
 
 
-// const Sticker = () => {
+const Sticker = () => {
 //   const [year, setYear] = useState('All');
 //   const [room, setRoom] = useState<number[]>([]);	
 //   const [r, setR] = useState('1');	
@@ -19,7 +19,8 @@ import yearData from '@/utils/year.json'
 // 		)
 // 		}
 
-//   return (
+  return (
+    <div> Sticker Page </div>
 //     <>
 //     <div>
 //       <select onChange={e=>{
@@ -71,7 +72,7 @@ import yearData from '@/utils/year.json'
 //             }
 //       </div>
 //     </>
-//   )
-// }
+  )
+}
 
-// export default Sticker
+export default Sticker
