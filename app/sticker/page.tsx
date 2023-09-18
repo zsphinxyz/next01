@@ -29,8 +29,9 @@ const Sticker = () => {
         >
           {
             yearData.map((i) => (
-              <option key={i.year} 
-                value={i.year} 
+              <option 
+                key={i.year} 
+                value={i.year}
                 className='hover:bg-green-300 '
               >
                 {['Nursery','Reception', 'All'].includes(i.year) ? i.year : 'Year '+i.year}
