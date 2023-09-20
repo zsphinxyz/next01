@@ -16,7 +16,7 @@ import ReactToPrint from "react-to-print"
 
 export default function Att() {
 	const [year, setYear] = useState('All');			// dropdown selection
-	const [room, setRoom] = useState<number[]>([]);		// total in current year
+	const [room, setRoom] = useState<number[]>([]);		// total room in current year
 	const [r, setR] = useState('1');					// show checked room in table of current year
 	const [search, setSearch] = useState('');			// search box
 	const [yearcol, setYearcol] = useState(false);		// add year(room) column
@@ -24,6 +24,7 @@ export default function Att() {
 	const [cols, setCols] = useState(5); 				// number of columns
 	const [colRef, setColRef] = useState<number[]>([])	// col array
 	const [colWidth, setColWidth] = useState(80)		// width of empty columns
+
 	
 	const printRef = useRef(null);
 
@@ -39,7 +40,7 @@ export default function Att() {
 	useEffect(()=>{
    		yearData.map(i => (
 		i.year == year && setRoom(i.room)
-	 ))
+		))
 	 setR('')
 	 setSearch('')
 	}, [year])
@@ -52,7 +53,7 @@ export default function Att() {
 		setR(
 			r.replace(e.target.id, '')
 		)
-		}
+	}
 	
 	return(
 		<div>
@@ -112,7 +113,6 @@ export default function Att() {
 
 	</div> {/* upper contol row ends */}
 
-
 		{/* Middle row starts*/}
 		<div className='w-full h-10 flex items-center '>
 			{
@@ -157,7 +157,7 @@ export default function Att() {
 
 		</div>	{/* end of table contol */}
 
-		<div className='p-2 py-1 bg-stone-400'> {/* Start Info bar */}
+		<div className='p-2 py-1 bg-slate-300'> {/* Start Info bar */}
 			<p>
 				<TiInfoLargeOutline className='inline text-xl border border-black rounded-full mr-2'/>
 				Year: {year} | &nbsp;
@@ -169,8 +169,13 @@ export default function Att() {
 		ref={printRef}
 		className='w-fit border-green-200 p-2'>
 
+		{/* Page Header */}
+
 		<h1 className="font-bold text-xl pl-5">
-			{year == 'All' ?  'All' : `Year ${year}, Room(${r.split('').sort().join()})` } 
+			{year == 'All' ?  'All' 
+			: year == 'Reception' ? `Reception, Room(${r.split('').sort().join()})`
+			: year == 'Nursery' ? 'Nursery'
+			: `Year ${year}, Room(${r.split('').sort().join()})` } 
 		</h1> 
 
  		<table className='font-serif font-[12px] whitespace-nowrap cursor-default'>
