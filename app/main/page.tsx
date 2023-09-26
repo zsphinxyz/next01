@@ -23,7 +23,7 @@ const Main = () => {
 
         {
             data.map(i => (
-                <div>{i.id}. &nbsp;&nbsp; <b>{i.name}</b> &nbsp;&nbsp;&nbsp; ({i.year}, {i.room})</div>
+                <div key={i.id}>{i.id}. &nbsp;&nbsp; <b>{i.name}</b> &nbsp;&nbsp;&nbsp; ({i.year}, {i.room})</div>
             ))
         }
 	

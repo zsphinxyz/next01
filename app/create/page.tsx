@@ -36,8 +36,6 @@ const Create = () => {
       getDocsFromFirestore();
     }, [year])
 
-
-
     
     const handleSubmit = async(e:any) => {
       e.preventDefault()
@@ -82,6 +80,7 @@ const Create = () => {
               {
                 room.map( i => (
                   <option
+                    key={i}
                     value={i}
                     disabled = {room.length == 0 && true}
                   >
