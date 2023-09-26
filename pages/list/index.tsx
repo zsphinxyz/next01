@@ -2,6 +2,9 @@ import '@/app/globals.css'
 import data from '@/utils/data.json'
 import yearData from '@/utils/year.json'
 
+	// Fire Base 
+
+	// Icons 
 import {SiGoogleclassroom} from 'react-icons/si';
 import {BsGrid3X3} from 'react-icons/bs';
 import {TiInfoLargeOutline} from 'react-icons/ti';
@@ -10,6 +13,7 @@ import {TbColumnInsertRight} from 'react-icons/tb';
 import {AiOutlineColumnWidth} from 'react-icons/ai';
 
 
+	// React 
 import { useRef, useEffect, useState } from 'react';
 import ReactToPrint from "react-to-print"
 
@@ -192,7 +196,9 @@ export default function Att() {
 			empty && (
 				<>
 					{colRef.map(i => (
-						<th key={i} className='border border-black' style={{minWidth: colWidth}}></th>
+						<th key={i} className='border border-black overflow-hidden' style={{minWidth: colWidth}}>
+							<input type="text" className=' bg-transparent w-full'/>
+						</th>
 					))}
 				</>
 			)}

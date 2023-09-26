@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <h1>NAV BAR IN LAYOUT PAGE</h1>
+        <h1 className=' leading-10 bg-slate-500 p-3 mb-10'>NAV BAR IN LAYOUT PAGE</h1>
         {children}
       </body>
     </html>
