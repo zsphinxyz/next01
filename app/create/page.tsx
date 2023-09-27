@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react"
-import { collection, addDoc, setDoc, doc, getDocs, query, where } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, getDocs, query, where, orderBy } from "firebase/firestore";
 import {db} from "@/firebase/firebase"
 import yearData from '@/utils/year.json'
 
@@ -13,8 +13,9 @@ const Create = () => {
     const [no, setNo] = useState(0);
     const [name, setName] = useState('');
 
-    const [year, setYear] = useState('');
+    const [year, setYear] = useState('Nursery');
     const [room, setRoom] = useState<number[]>([]);
+    const [addRoom, setAddRoom] = useState(1)
     const [error, setError] = useState<boolean | null>(true)
 
     const [lastId, setLastId] = useState(0)
@@ -28,13 +29,20 @@ const Create = () => {
         i.year == year && setRoom(i.room)
       ))
 
+
           // Get Documents from firestore
       const getDocsFromFirestore = async() => {
-      const querySnapshot = await getDocs(collection(db, year));
-      setLastNo(querySnapshot.size + 1) //add 1 to the total size
+        const q = query(collection(db, year), where("room", "==", addRoom));
+        const querySnapshot = await getDocs(q);
+        setLastNo(querySnapshot.size)
+
+        const q2 = query(collection(db, 'all'), where("year", "==", 9), orderBy('id'));
+        const querySnapshot2 = await getDocs(q2);
+        setLastId(querySnapshot2.docs.at(-1)?.data().id)
       }
       getDocsFromFirestore();
-    }, [year])
+    }, [year, addRoom])
+
 
     
     const handleSubmit = async(e:any) => {
@@ -67,7 +75,8 @@ const Create = () => {
               {
                 yearData.map((i) => (
                   <option key={i.year} 
-                    value={i.year} 
+                    value={i.year}
+                    defaultValue={year}
                     className='hover:bg-green-300 '
                   >
                     {['Nursery','Reception', 'All'].includes(i.year) ? i.year : 'Year '+i.year}
@@ -76,7 +85,7 @@ const Create = () => {
               }
             </select>
 
-            <select>
+            <select onClick={e => setAddRoom(parseInt(e.currentTarget.value))}>
               {
                 room.map( i => (
                   <option
@@ -92,7 +101,7 @@ const Create = () => {
 
             <input type="text" placeholder="name" required={true} onChange={e => setName(e.target.value)} className=" col-span-2"/>
             <div>
-              ID: 
+              ID: {lastId}
             </div>
             <div>
               No: {lastNo}
