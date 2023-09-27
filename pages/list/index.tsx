@@ -21,7 +21,7 @@ import ReactToPrint from "react-to-print"
 export default function Att() {
 	const [year, setYear] = useState('All');			// dropdown selection
 	const [room, setRoom] = useState<number[]>([]);		// total room in current year
-	const [r, setR] = useState('1');					// show checked room in table of current year
+	const [r, setR] = useState('');					// show checked room in table of current year
 	const [search, setSearch] = useState('');			// search box
 	const [yearcol, setYearcol] = useState(false);		// add year(room) column
 	const [empty, setEmpty] = useState(false);			// add empty columns
@@ -50,6 +50,7 @@ export default function Att() {
 	}, [year])
 
 	const handleInput = (e:any) => {
+
 		e.target.checked ? 
 		setR(
 			(a) => e.target.id + a
@@ -123,11 +124,13 @@ export default function Att() {
 				room.map(i => (
 				<>
 					<label>
-						<input  type='checkbox'
-								key={i}
-								id={i.toString()}
-								onChange={handleInput}
-								className='appearance-none peer'
+						<input  
+							type='checkbox'
+							key={i}
+							id={i.toString()}
+							onChange={handleInput}
+							defaultChecked = {i == parseInt(r) && true}
+							className='appearance-none peer'
 						/> <span className='bg-slate-300 p-1 rounded-sm w-full h-full peer-checked:bg-green-500'>R-{i}</span>
 					</label>
 				</>
@@ -196,7 +199,7 @@ export default function Att() {
 			empty && (
 				<>
 					{colRef.map(i => (
-						<th key={i} className='border border-black overflow-hidden' style={{minWidth: colWidth}}>
+						<th key={i} className='border border-black overflow-hidden w-[80px] text-center' style={{minWidth: colWidth}}>
 							<input type="text" className=' bg-transparent w-full'/>
 						</th>
 					))}
