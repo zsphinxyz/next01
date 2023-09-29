@@ -8,9 +8,8 @@ import yearData from '@/utils/year.json'
 import {SiGoogleclassroom} from 'react-icons/si';
 import {BsGrid3X3} from 'react-icons/bs';
 import {TiInfoLargeOutline} from 'react-icons/ti';
-import {AiFillPrinter} from 'react-icons/ai';
 import {TbColumnInsertRight} from 'react-icons/tb';
-import {AiOutlineColumnWidth, AiOutlineOrderedList} from 'react-icons/ai';
+import {AiFillPrinter, AiOutlineColumnWidth, AiOutlineOrderedList} from 'react-icons/ai';
 
 
 	// React 
