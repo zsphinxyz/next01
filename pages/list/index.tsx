@@ -207,7 +207,7 @@ export default function Att() {
 			: `Year ${year}, Room(${r.split('').sort().join()})` } 
 		</h1> 
 
- 		<table className='font-serif font-[12px] whitespace-nowrap cursor-default selection:bg-green-500 selection:text-white'>
+ 		<table className=' font-[Times] whitespace-nowrap cursor-default selection:bg-green-500 selection:text-white'>
 		<thead>
 		 <tr>
 			<th className="border border-black">No</th>
