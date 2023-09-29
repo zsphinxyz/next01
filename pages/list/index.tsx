@@ -60,6 +60,18 @@ export default function Att() {
 			r.replace(e.target.id, '')
 		)
 	}
+
+		// From Stackoverflow
+	function romanize(num:number) {
+		var lookup:any = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},roman = '',i;
+		for ( i in lookup ) {
+		  while ( num >= lookup[i] ) {
+			roman += i;
+			num -= lookup[i];
+		  }
+		}
+		return roman;
+	  }
 	
 	return(
 		<div>
@@ -235,7 +247,9 @@ export default function Att() {
 						return(
 							<tr key={i.id}>
 								<td className='border border-black px-2 resize-x'>{c}</td>
-								{isRoll && <td className='border border-black px-2 resize-x'>{i.roll}</td>}
+								{isRoll && <td className='border border-black px-2 resize-x'>
+									{i.roll != 0 ? `${romanize(Number(i.year))}-${i.roll}` : '-'}
+								</td>}
 								<td className='border border-black px-2 resize-x'> {i.name} </td>
 								{
 									yearcol &&
