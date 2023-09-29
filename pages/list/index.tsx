@@ -207,7 +207,7 @@ export default function Att() {
 			: `Year ${year}, Room(${r.split('').sort().join()})` } 
 		</h1> 
 
- 		<table className=' font-[Times] whitespace-nowrap cursor-default selection:bg-green-500 selection:text-white'>
+ 		<table className=' font-[Times] whitespace-nowrap cursor-default selection:bg-slate-700 selection:text-white'>
 		<thead>
 		 <tr>
 			<th className="border border-black">No</th>
@@ -222,7 +222,7 @@ export default function Att() {
 			empty && (
 				<>
 					{colRef.map(i => (
-						<th key={i} className='border border-black overflow-hidden w-[80px] text-center' style={{minWidth: colWidth}}>
+						<th key={i} className='border border-black overflow-hidden min-w[10px] w-[80px] text-center' style={{minWidth: colWidth}}>
 							<input type="text" className=' bg-transparent w-full'/>
 						</th>
 					))}
