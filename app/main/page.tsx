@@ -1,6 +1,6 @@
 'use client'
 
-import { DocumentData, collection, getDocs } from "firebase/firestore";
+import { DocumentData, collection, getDocs, orderBy, query } from "firebase/firestore";
 import {db} from "@/firebase/firebase"
 import { useState, useEffect } from "react";
 
@@ -10,7 +10,7 @@ const Main = () => {
 
     useEffect(() => {0
         const getData = async() => {
-            const res = await getDocs(collection(db, "all"));
+            const res = await getDocs(query(collection(db, "all"), orderBy('id')));
             const firebaseData = res.docs.map( i => i.data())
             setData(firebaseData)
         }

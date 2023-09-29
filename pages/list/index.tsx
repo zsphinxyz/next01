@@ -10,7 +10,7 @@ import {BsGrid3X3} from 'react-icons/bs';
 import {TiInfoLargeOutline} from 'react-icons/ti';
 import {AiFillPrinter} from 'react-icons/ai';
 import {TbColumnInsertRight} from 'react-icons/tb';
-import {AiOutlineColumnWidth} from 'react-icons/ai';
+import {AiOutlineColumnWidth, AiOutlineOrderedList} from 'react-icons/ai';
 
 
 	// React 
@@ -21,13 +21,14 @@ import ReactToPrint from "react-to-print"
 export default function Att() {
 	const [year, setYear] = useState('All');			// dropdown selection
 	const [room, setRoom] = useState<number[]>([]);		// total room in current year
-	const [r, setR] = useState('');					// show checked room in table of current year
+	const [r, setR] = useState('');						// show checked room in table of current year
 	const [search, setSearch] = useState('');			// search box
 	const [yearcol, setYearcol] = useState(false);		// add year(room) column
 	const [empty, setEmpty] = useState(false);			// add empty columns
 	const [cols, setCols] = useState(5); 				// number of columns
 	const [colRef, setColRef] = useState<number[]>([])	// col array
 	const [colWidth, setColWidth] = useState(80)		// width of empty columns
+	const [isRoll, setIsRoll] = useState(false)			// show roll no or not
 
 	
 	const printRef = useRef(null);
@@ -84,6 +85,15 @@ export default function Att() {
 					))
 				}
 			</select>
+
+		<label className={`bg-slate-300 p-1 rounded-sm ${isRoll && 'bg-green-300'}`}>
+			<input 	type='checkbox' 
+					checked={isRoll}
+					className=" appearance-none peer"
+					onChange={() => setIsRoll(!isRoll)}
+			/> 
+			<AiOutlineOrderedList className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
+		</label>
 
 		<label className={`bg-slate-300 p-1 rounded-sm ${yearcol && 'bg-green-300'}`}>
 		<input 	type='checkbox' 
@@ -189,6 +199,7 @@ export default function Att() {
 		<thead>
 		 <tr>
 			<th className="border border-black">No</th>
+			{isRoll && <th className="border border-black">Roll No</th>}
 			<th className="border border-black">Name</th>
 			{
 				yearcol &&
@@ -224,6 +235,7 @@ export default function Att() {
 						return(
 							<tr key={i.id}>
 								<td className='border border-black px-2 resize-x'>{c}</td>
+								{isRoll && <td className='border border-black px-2 resize-x'>{i.roll}</td>}
 								<td className='border border-black px-2 resize-x'> {i.name} </td>
 								{
 									yearcol &&
