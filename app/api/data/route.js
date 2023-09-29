@@ -2,7 +2,7 @@ import data from '@/utils/data.json'
 
 export async function GET(req) {
   return(
-    new Response(JSON.stringify(data))
+    new Response(data)
   )
 }
 
