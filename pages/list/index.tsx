@@ -76,7 +76,7 @@ export default function Att() {
 		<div>
 
 	  {/* Controls for table */}
-		<div className='select-none bg-slate-700 p-5'>
+		<div className='select-none bg-slate-700 p-5 sticky top-0'>
 
 			{/* Control for upper row */}
 		<div className='flex items-center gap-2'>
