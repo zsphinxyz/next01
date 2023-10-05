@@ -6,7 +6,7 @@ import yearData from '@/utils/year.json'
 
 	// Icons 
 import {SiGoogleclassroom} from 'react-icons/si';
-import {BsGrid3X3} from 'react-icons/bs';
+import {BsGrid3X3, BsFillCursorFill} from 'react-icons/bs';
 import {TiInfoLargeOutline} from 'react-icons/ti';
 import {TbColumnInsertRight} from 'react-icons/tb';
 import {AiFillPrinter, AiOutlineColumnWidth, AiOutlineOrderedList} from 'react-icons/ai';
@@ -28,6 +28,7 @@ export default function Att() {
 	const [colRef, setColRef] = useState<number[]>([])	// col array
 	const [colWidth, setColWidth] = useState(80)		// width of empty columns
 	const [isRoll, setIsRoll] = useState(false)			// show roll no or not
+	const [isCell, setIsCell] = useState(false) 			// select individual cells
 
 	
 	const printRef = useRef(null);
@@ -107,23 +108,23 @@ export default function Att() {
 		</label>
 
 		<label className={`bg-slate-300 p-1 rounded-sm ${yearcol && 'bg-green-300'}`}>
-		<input 	type='checkbox' 
-				checked={yearcol}
-				className=" appearance-none peer"
-				onChange={() => setYearcol(!yearcol)}
-		/> 
-		<SiGoogleclassroom className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
-	</label>
+			<input 	type='checkbox' 
+					checked={yearcol}
+					className=" appearance-none peer"
+					onChange={() => setYearcol(!yearcol)}
+			/> 
+			<SiGoogleclassroom className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
+		</label>
 
-	<label className={`bg-slate-300 p-1 rounded-sm ${empty && 'bg-green-300'}`}>
-		<input 
-			type='checkbox'
-			checked={empty}
-			className='appearance-none peer'
-			onChange={ () => setEmpty(!empty) }
-		/>
-		<BsGrid3X3  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
-	</label>
+		<label className={`bg-slate-300 p-1 rounded-sm ${empty && 'bg-green-300'}`}>
+			<input 
+				type='checkbox'
+				checked={empty}
+				className='appearance-none peer'
+				onChange={ () => setEmpty(!empty) }
+			/>
+			<BsGrid3X3  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
+		</label>
 
 	<label className='bg-slate-300 rounded-sm pr-1'>
 		<TbColumnInsertRight className=' inline-block  text-2xl h-8' />
@@ -134,6 +135,17 @@ export default function Att() {
 		<AiOutlineColumnWidth className=' inline-block  text-2xl h-8' />
 		<input type="number" min='10' max='200' className='outline-none bg-transparent w-7 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
 	</label>
+
+				{/* Select individual cells  */}
+	<label className={`bg-slate-300 p-1 rounded-sm ${isCell && 'bg-green-300'}`}>
+			<input 
+				type='checkbox'
+				checked={isCell}
+				className='appearance-none peer'
+				onChange={ () => setIsCell(!isCell) }
+			/>
+			<BsFillCursorFill  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
+		</label>
 
 
 
@@ -206,7 +218,7 @@ export default function Att() {
 			: `Year ${year}, Room(${r.split('').sort().join()})` } 
 		</h1> 
 
- 		<table className=' font-[Times] whitespace-nowrap cursor-default selection:bg-slate-700 selection:text-white'>
+ 		<table className={`font-[Times] whitespace-nowrap ${isCell ? 'cursor-cell' : 'cursor-default'} selection:bg-slate-700 selection:text-white`}>
 		<thead>
 		 <tr>
 			<th className="border border-black">No</th>
@@ -245,11 +257,11 @@ export default function Att() {
 						c++;
 						return(
 							<tr key={i.id}>
-								<td className='border border-black px-2 resize-x'>{c}</td>
-								{isRoll && <td className='border border-black px-2 resize-x'>
+								<td className='border border-black px-2 '>{c}</td>
+								{isRoll && <td className='border border-black px-2 '>
 									{i.roll != 0 ? `${romanize(Number(i.year))}-${i.roll}` : '-'}
 								</td>}
-								<td className='border border-black px-2 resize-x'> {i.name} </td>
+								<td className={ `border border-black px-2 ${isCell ? 'select-all' : 'select-auto'}` }> {i.name} </td>
 								{
 									yearcol &&
 									<td className='border border-black px-2 min-w-fit'>{i.year} ({i.room})</td>
