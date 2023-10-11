@@ -9,12 +9,15 @@ import {SiGoogleclassroom} from 'react-icons/si';
 import {BsGrid3X3, BsFillCursorFill} from 'react-icons/bs';
 import {TiInfoLargeOutline} from 'react-icons/ti';
 import {TbColumnInsertRight} from 'react-icons/tb';
+import {IoBrowsersSharp} from 'react-icons/io5';
 import {AiFillPrinter, AiOutlineColumnWidth, AiOutlineOrderedList} from 'react-icons/ai';
 
 
-	// React 
+	// React & Next
 import { useRef, useEffect, useState } from 'react';
 import ReactToPrint from "react-to-print"
+// import { useRouter } from 'next/router';
+// import { useSearchParams } from 'next/navigation';
 
 
 export default function Att() {
@@ -28,9 +31,13 @@ export default function Att() {
 	const [colRef, setColRef] = useState<number[]>([])	// col array
 	const [colWidth, setColWidth] = useState(80)		// width of empty columns
 	const [isRoll, setIsRoll] = useState(false)			// show roll no or not
-	const [isCell, setIsCell] = useState(false) 			// select individual cells
+	const [isCell, setIsCell] = useState(false) 		// select individual cells
+	const [tableHeader, setTableHeader] = useState(true)	// set Table header
 
-	
+	// const searchParams = useSearchParams();
+	// const year = searchParams?.get('all')
+	// const router = useRouter();
+
 	const printRef = useRef(null);
 
 	let c = 0;
@@ -81,9 +88,9 @@ export default function Att() {
 
 			{/* Control for upper row */}
 		<div className='flex items-center gap-2'>
-			<select onChange={e=>{
+			<select onChange={e=>
 				setYear(e.target.value)
-				}}
+			}
 				className="p-2 bg-slate-300 text-black bold outline-none"
 			>
 				{
@@ -133,11 +140,12 @@ export default function Att() {
 	
 	<label className='bg-slate-300 rounded-sm pr-1'>
 		<AiOutlineColumnWidth className=' inline-block  text-2xl h-8' />
-		<input type="number" min='10' max='200' className='outline-none bg-transparent w-7 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
+		<input type="number" min='10' max='200' className='outline-none bg-transparent w-10 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
 	</label>
 
+
 				{/* Select individual cells  */}
-	<label className={`bg-slate-300 p-1 rounded-sm ${isCell && 'bg-green-300'}`}>
+		<label className={`bg-slate-300 p-1 rounded-sm ${isCell && 'bg-green-300'}`}>
 			<input 
 				type='checkbox'
 				checked={isCell}
@@ -147,6 +155,16 @@ export default function Att() {
 			<BsFillCursorFill  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
 		</label>
 
+				{/* Add Header */}
+		<label className={`bg-slate-300 p-1 rounded-sm ${tableHeader && 'bg-green-300'}`}>
+			<input 
+				type='checkbox'
+				checked={tableHeader}
+				className='appearance-none peer'
+				onChange={ () => setTableHeader(!tableHeader) }
+			/>
+			<IoBrowsersSharp  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
+		</label>
 
 
 	</div> {/* upper contol row ends */}
@@ -211,6 +229,11 @@ export default function Att() {
 
 		{/* Page Header */}
 
+		{
+			tableHeader && 
+			<input type="text" placeholder='Enter Page Header' className=' font-serif text-xl font-bold text-center w-full' />
+		}
+
 		<h1 className="font-bold text-xl pl-5">
 			{year == 'All' ?  'All' 
 			: year == 'Reception' ? `Reception, Room(${r.split('').sort().join()})`
@@ -234,7 +257,7 @@ export default function Att() {
 				<>
 					{colRef.map(i => (
 						<th key={i} className='border border-black overflow-hidden min-w[10px] w-[80px] text-center' style={{minWidth: colWidth}}>
-							<input type="text" className=' bg-transparent w-full'/>
+							<input type="text" className=' bg-transparent w-full text-center'/>
 						</th>
 					))}
 				</>
