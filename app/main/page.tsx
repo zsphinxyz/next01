@@ -1,8 +1,9 @@
 'use client'
 
 import { DocumentData, collection, getDocs, orderBy, query } from "firebase/firestore";
-import {db} from "@/firebase/firebase"
+import {db, auth} from "@/firebase/firebase"
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const Main = () => {
 
@@ -18,15 +19,18 @@ const Main = () => {
     }, [])
 
   return (
+    auth.currentUser != null ?
     <div>
-
         {
             data.map(i => (
                 <div key={i.id}>{i.id}. &nbsp;&nbsp; <b>{i.name}</b> &nbsp;&nbsp;&nbsp; ({i.year}, {i.room})</div>
             ))
         }
-	
-
+    </div>
+    :
+    <div>
+        <p>You are not logged In. You need to log in to view the data.</p>
+        <Link href="/auth" className="text-blue-800 underline px-5 py-1 m-10"> Login</Link>
     </div>
   )
 }

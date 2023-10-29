@@ -1,6 +1,7 @@
 import '@/app/globals.css'
 import data from '@/utils/data.json'
 import yearData from '@/utils/year.json'
+import Hover from "@/components/Hover"
 
 	// Fire Base 
 
@@ -32,7 +33,7 @@ export default function Att() {
 	const [colWidth, setColWidth] = useState(80)		// width of empty columns
 	const [isRoll, setIsRoll] = useState(false)			// show roll no or not
 	const [isCell, setIsCell] = useState(false) 		// select individual cells
-	const [tableHeader, setTableHeader] = useState(true)	// set Table header
+	const [tableHeader, setTableHeader] = useState(false)	// set Table header
 
 	// const searchParams = useSearchParams();
 	// const year = searchParams?.get('all')
@@ -91,13 +92,13 @@ export default function Att() {
 			<select onChange={e=>
 				setYear(e.target.value)
 			}
-				className="p-2 bg-slate-300 text-black bold outline-none"
+				className="p-2 bg-slate-300 text-black outline-none"
 			>
 				{
 					yearData.map((i) => (
 						<option key={i.year} 
 							value={i.year} 
-							className='hover:bg-green-300 '
+							className='hover:bg-green-300'
 						>
 							{['Nursery','Reception', 'All'].includes(i.year) ? i.year : 'Year '+i.year}
 						</option>	
@@ -105,33 +106,39 @@ export default function Att() {
 				}
 			</select>
 
-		<label className={`bg-slate-300 p-1 rounded-sm ${isRoll && 'bg-green-300'}`}>
-			<input 	type='checkbox' 
-					checked={isRoll}
-					className=" appearance-none peer"
-					onChange={() => setIsRoll(!isRoll)}
-			/> 
-			<AiOutlineOrderedList className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
-		</label>
+		<Hover text='Show Roll Number'>
+			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${isRoll && 'bg-green-300'}`}>
+				<input 	type='checkbox' 
+						checked={isRoll}
+						className=" appearance-none peer"
+						onChange={() => setIsRoll(!isRoll)}
+				/> 
+				<AiOutlineOrderedList className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
+			</label>
+		</Hover>
+		
+		<Hover text='Show Class'>
+			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${yearcol && 'bg-green-300'}`}>
+				<input 	type='checkbox' 
+						checked={yearcol}
+						className=" appearance-none peer"
+						onChange={() => setYearcol(!yearcol)}
+						/> 
+				<SiGoogleclassroom className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
+			</label>
+		</Hover>
 
-		<label className={`bg-slate-300 p-1 rounded-sm ${yearcol && 'bg-green-300'}`}>
-			<input 	type='checkbox' 
-					checked={yearcol}
-					className=" appearance-none peer"
-					onChange={() => setYearcol(!yearcol)}
-			/> 
-			<SiGoogleclassroom className='w-fit inline text-[30px] text-stone-500 peer-checked:text-green-700' />
-		</label>
-
-		<label className={`bg-slate-300 p-1 rounded-sm ${empty && 'bg-green-300'}`}>
-			<input 
-				type='checkbox'
-				checked={empty}
-				className='appearance-none peer'
-				onChange={ () => setEmpty(!empty) }
-			/>
-			<BsGrid3X3  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
-		</label>
+		<Hover text='Show Grid'>
+			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${empty && 'bg-green-300'}`}>
+				<input 
+					type='checkbox'
+					checked={empty}
+					className='appearance-none peer'
+					onChange={ () => setEmpty(!empty) }
+					/>
+				<BsGrid3X3  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
+			</label>
+		</Hover>
 
 	<label className='bg-slate-300 rounded-sm pr-1'>
 		<TbColumnInsertRight className=' inline-block  text-2xl h-8' />
@@ -145,26 +152,30 @@ export default function Att() {
 
 
 				{/* Select individual cells  */}
-		<label className={`bg-slate-300 p-1 rounded-sm ${isCell && 'bg-green-300'}`}>
-			<input 
-				type='checkbox'
-				checked={isCell}
-				className='appearance-none peer'
-				onChange={ () => setIsCell(!isCell) }
-			/>
-			<BsFillCursorFill  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
-		</label>
+		<Hover text='Cell Mode'>
+			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${isCell && 'bg-green-300'}`}>
+				<input 
+					type='checkbox'
+					checked={isCell}
+					className='appearance-none peer'
+					onChange={ () => setIsCell(!isCell) }
+				/>
+				<BsFillCursorFill  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
+			</label>
+		</Hover>
 
 				{/* Add Header */}
-		<label className={`bg-slate-300 p-1 rounded-sm ${tableHeader && 'bg-green-300'}`}>
-			<input 
-				type='checkbox'
-				checked={tableHeader}
-				className='appearance-none peer'
-				onChange={ () => setTableHeader(!tableHeader) }
-			/>
-			<IoBrowsersSharp  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
-		</label>
+		<Hover text='Page Header'>
+			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${tableHeader && 'bg-green-300'}`}>
+				<input 
+					type='checkbox'
+					checked={tableHeader}
+					className='appearance-none peer'
+					onChange={ () => setTableHeader(!tableHeader) }
+				/>
+				<IoBrowsersSharp  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-green-700 text-align-right' /> 
+			</label>
+		</Hover>
 
 
 	</div> {/* upper contol row ends */}
@@ -195,16 +206,18 @@ export default function Att() {
 			<input 
 				placeholder='Search' 
 				onChange={(e)=>setSearch(e.target.value)}
-				className="text-black outline-none pl-2 py-1 bg-slate-300 focus:bg-slate-400"
+				className="text-black outline-none pl-2 py-1 bg-slate-300 focus:bg-slate-100"
 				value={search}
 			/>
 
 			<ReactToPrint
 				trigger = {
 					() => (
-						<button className='ml-2 bg-slate-300 h-[32px] hover:bg-slate-400 transition '>
-							<AiFillPrinter className='w-full text-xl px-2'/>
-						</button>
+						<Hover text='Print'>
+							<button className='ml-2 bg-slate-300 hover:bg-slate-100 h-[32px] group transition '>
+								<AiFillPrinter className='w-full text-xl px-2 group-hover:scale-125 transition '/>
+							</button>
+						</Hover>
 						)}
 						content={()=>printRef.current}
 						documentTitle="Students List"
@@ -218,14 +231,14 @@ export default function Att() {
 		<div className='p-2 py-1 bg-slate-300'> {/* Start Info bar */}
 			<p>
 				<TiInfoLargeOutline className='inline text-xl border border-black rounded-full mr-2'/>
-				Year: {year} | &nbsp;
-				{room.length} Rooms | &nbsp;
+				Year: {year} • &nbsp;
+				{room.length} Rooms • &nbsp;
 			</p>
 		</div> {/* End Info bar */}
 
 		<div 
 		ref={printRef}
-		className='w-fit border-green-200 p-2'>
+		className='min-w-fit w-[210mm] h-[297mm]'>
 
 		{/* Page Header */}
 
@@ -269,14 +282,15 @@ export default function Att() {
 		<tbody>
 
 		 {
-		 data.filter(j => year=='All' ?
+		 data.filter( j => year=='All' ?
 		 			j.year :
 					(j.year.toString() == year && r.concat('0').includes(j.room.toString()) ))
-					.filter(s => search.length !=0 ?
-					s.name.toLowerCase().includes(search.toLowerCase()) :
-					s.name
+					.filter(
+						s => search.length !=0 ?
+						s.name.toLowerCase().includes(search.toLowerCase()) :
+						s.name
 					)
-					.map((i) => {
+					.map((i) => {	
 						c++;
 						return(
 							<tr key={i.id}>
