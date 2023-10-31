@@ -17,6 +17,7 @@ import {AiFillPrinter, AiOutlineColumnWidth, AiOutlineOrderedList, AiOutlineNumb
 	// React & Next
 import { useRef, useEffect, useState } from 'react';
 import ReactToPrint from "react-to-print"
+import { La_Belle_Aurore } from 'next/font/google';
 // import { useRouter } from 'next/router';
 // import { useSearchParams } from 'next/navigation';
 
@@ -140,6 +141,7 @@ export default function Att() {
 			</label>
 		</Hover>
 
+
 		<Hover text='Show Grid'>
 			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${empty && 'bg-green-500'}`}>
 				<input 
@@ -152,15 +154,18 @@ export default function Att() {
 			</label>
 		</Hover>
 
-	<label className='bg-slate-300 rounded-sm pr-1'>
+	{empty && <label className='bg-slate-300 rounded-sm pr-1'>
 		<TbColumnInsertRight className=' inline-block  text-2xl h-8' />
 		<input type="number" min='0' max='25' className='outline-none bg-transparent w-7 h-8 text-right ' value={cols} onChange={e => setCols(parseInt(e.target.value))}/>
-	</label>
+	</label>}
 	
-	<label className='bg-slate-300 rounded-sm pr-1'>
+	{empty && <label className='bg-slate-300 rounded-sm pr-1'>
 		<AiOutlineColumnWidth className=' inline-block  text-2xl h-8' />
 		<input type="number" min='10' max='200' className='outline-none bg-transparent w-10 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
-	</label>
+	</label>}
+
+				{/* Divider  */}
+	<div className='w-[3px] h-7 bg-white mx-1 rounded-full' />
 
 
 				{/* Select individual cells  */}
@@ -270,7 +275,7 @@ export default function Att() {
 		 <tr>
 			{isNo && <th className="border border-black">No</th>}
 			{isRoll && <th className="border border-black">Roll No</th>}
-			<th className="border border-black">Name</th>
+			<th className="border border-black min-w-[100px]">Name</th>
 			{
 				yearcol &&
 				<th className="border border-black px-2">Year (Room)</th>
