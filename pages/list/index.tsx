@@ -100,16 +100,16 @@ export default function Att() {
 					yearData.map((i) => (
 						<option key={i.year} 
 							value={i.year} 
-							className='hover:bg-green-500'
+							className=''
 						>
-							{['Nursery','Reception', 'All'].includes(i.year) ? i.year : 'Year '+i.year}
+							{['Nursery','Reception', 'All'].includes(i.year) ? i.year : 'Year ' + i.year}
 						</option>	
 					))
 				}
 			</select>
 
 		<Hover text='Show Number'>
-			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${isNo && 'bg-green-500'}`}>
+			<label className={` p-1 pb-2 rounded-sm ${isNo ? 'bg-green-500' : 'bg-slate-300'}`}>
 				<input 	type='checkbox' 
 						checked={isNo}
 						className=" appearance-none peer"
@@ -120,7 +120,7 @@ export default function Att() {
 		</Hover>
 
 		<Hover text='Show Roll Number'>
-			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${isRoll && 'bg-green-500'}`}>
+			<label className={` p-1 pb-2 rounded-sm ${isRoll ? 'bg-green-500' : 'bg-slate-300'}`}>
 				<input 	type='checkbox' 
 						checked={isRoll}
 						className=" appearance-none peer"
@@ -131,7 +131,7 @@ export default function Att() {
 		</Hover>
 		
 		<Hover text='Show Class'>
-			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${yearcol && 'bg-green-500'}`}>
+			<label className={` p-1 pb-2 rounded-sm ${yearcol ? 'bg-green-500' : 'bg-slate-300'}`}>
 				<input 	type='checkbox' 
 						checked={yearcol}
 						className=" appearance-none peer"
@@ -143,7 +143,7 @@ export default function Att() {
 
 
 		<Hover text='Show Grid'>
-			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${empty && 'bg-green-500'}`}>
+			<label className={` p-1 pb-2 rounded-sm ${empty ? 'bg-green-500' : 'bg-slate-300'}`}>
 				<input 
 					type='checkbox'
 					checked={empty}
@@ -154,12 +154,12 @@ export default function Att() {
 			</label>
 		</Hover>
 
-	{empty && <label className='bg-slate-300 rounded-sm pr-1'>
+	{empty && <label className=' rounded-sm pr-1 bg-slate-300'>
 		<TbColumnInsertRight className=' inline-block  text-2xl h-8' />
 		<input type="number" min='0' max='25' className='outline-none bg-transparent w-7 h-8 text-right ' value={cols} onChange={e => setCols(parseInt(e.target.value))}/>
 	</label>}
 	
-	{empty && <label className='bg-slate-300 rounded-sm pr-1'>
+	{empty && <label className=' rounded-sm pr-1 bg-slate-300'>
 		<AiOutlineColumnWidth className=' inline-block  text-2xl h-8' />
 		<input type="number" min='10' max='200' className='outline-none bg-transparent w-10 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
 	</label>}
@@ -167,11 +167,10 @@ export default function Att() {
 				{/* Divider  */}
 	<div className='w-[3px] h-7 bg-white mx-1 rounded-full' />
 
-
 				{/* Select individual cells  */}
 		<Hover text='Cell Mode'>
-			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${isCell && 'bg-green-500'}`}>
-				<input 
+			<label className={` p-1 pb-2 rounded-sm ${isCell ? 'bg-green-500' : 'bg-slate-300'}`}>
+				<input
 					type='checkbox'
 					checked={isCell}
 					className='appearance-none peer'
@@ -183,7 +182,7 @@ export default function Att() {
 
 				{/* Add Header */}
 		<Hover text='Page Header'>
-			<label className={`bg-slate-300 p-1 pb-2 rounded-sm ${tableHeader && 'bg-green-500'}`}>
+			<label className={` p-1 pb-2 rounded-sm ${tableHeader ? 'bg-green-500' : 'bg-slate-300'}`}>
 				<input 
 					type='checkbox'
 					checked={tableHeader}
