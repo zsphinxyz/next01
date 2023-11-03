@@ -284,8 +284,8 @@ export default function Att() {
 			empty && (
 				<>
 					{colRef.map(i => (
-						<th key={i} className='border border-black overflow-hidden min-w[10px] w-[80px] text-center' style={{minWidth: colWidth}}>
-							<input type="text" className=' bg-transparent w-full text-center outline-none focus:bg-slate-200'/>
+						<th key={i} className='border border-black overflow-hidden text-center' style={{width: colWidth}}>
+							<input type="text" className=' bg-transparent w-full h-full text-center outline-none focus:bg-slate-200'/>
 						</th>
 					))}
 				</>
