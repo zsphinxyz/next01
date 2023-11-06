@@ -11,7 +11,8 @@ import {BsGrid3X3, BsFillCursorFill} from 'react-icons/bs';
 import {TiInfoLargeOutline} from 'react-icons/ti';
 import {TbColumnInsertRight} from 'react-icons/tb';
 import {IoBrowsersSharp} from 'react-icons/io5';
-import {AiFillPrinter, AiOutlineColumnWidth, AiOutlineOrderedList, AiOutlineNumber} from 'react-icons/ai';
+import {RiFilePaper2Line} from 'react-icons/ri';
+import {AiFillPrinter, AiOutlineColumnWidth, AiOutlineOrderedList, AiOutlineNumber, AiOutlineFontSize} from 'react-icons/ai';
 
 
 	// React & Next
@@ -32,10 +33,14 @@ export default function Att() {
 	const [cols, setCols] = useState(5); 				// number of columns
 	const [colRef, setColRef] = useState<number[]>([])	// col array
 	const [colWidth, setColWidth] = useState(80)		// width of empty columns
+	const [rowHeight, setRowHeight] = useState(27)		// height of empty rows
 	const [isRoll, setIsRoll] = useState(false)			// show roll no or not
 	const [isNo, setIsNo] = useState(true)				// show Number or not
 	const [isCell, setIsCell] = useState(false) 		// select individual cells
 	const [tableHeader, setTableHeader] = useState(false)	// set Table header
+	const [ori, setOri] = useState(false)				// set Orientation
+
+	const [fontSize, setFontSize] = useState(12)		// font size
 
 	// const searchParams = useSearchParams();
 	// const year = searchParams?.get('all')
@@ -45,6 +50,8 @@ export default function Att() {
 
 	let c = 0;
 	let arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+
+	// let studentNames:string[] = [] 
 
 	useEffect(() => {
 		for (let i = 1; i < arr.length; i++) {
@@ -58,6 +65,12 @@ export default function Att() {
 		))
 	 setR('')
 	 setSearch('')
+
+	//  store all the students names in one single array
+	//  data.map(i => (
+	// 	studentNames.push(i.name)
+	//  ))
+	//  console.log(studentNames.sort())
 	}, [year])
 
 	const handleInput = (e:any) => {
@@ -154,15 +167,22 @@ export default function Att() {
 			</label>
 		</Hover>
 
-	{empty && <label className=' rounded-sm pr-1 bg-slate-300'>
-		<TbColumnInsertRight className=' inline-block  text-2xl h-8' />
-		<input type="number" min='0' max='25' className='outline-none bg-transparent w-7 h-8 text-right ' value={cols} onChange={e => setCols(parseInt(e.target.value))}/>
-	</label>}
-	
-	{empty && <label className=' rounded-sm pr-1 bg-slate-300'>
-		<AiOutlineColumnWidth className=' inline-block  text-2xl h-8' />
-		<input type="number" min='10' max='200' className='outline-none bg-transparent w-10 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
-	</label>}
+		{empty && <label className=' rounded-sm pr-1 bg-slate-300'>
+			<TbColumnInsertRight className=' inline-block  text-2xl h-8' />
+			<input type="number" min='0' max='25' className='outline-none bg-transparent w-7 h-8 text-right ' value={cols} onChange={e => setCols(parseInt(e.target.value))}/>
+		</label>}
+		
+		{empty && <label className=' rounded-sm pr-1 bg-slate-300'>
+			<AiOutlineColumnWidth className=' inline-block  text-2xl h-8' />
+			<input type="number" min='10' max='200' className='outline-none bg-transparent w-10 h-8 text-right' value={colWidth} onChange={e => setColWidth(parseInt(e.target.value))}/>
+		</label>}
+
+		{empty && <label className=' rounded-sm pr-1 bg-slate-300'>
+			<AiOutlineColumnWidth className=' inline-block text-2xl h-8 rotate-90' />
+			<input type="number" min='10' max='200' className='outline-none bg-transparent w-10 h-8 text-right' value={rowHeight} onChange={e => setRowHeight(parseInt(e.target.value))}/>
+		</label>}
+
+
 
 				{/* Divider  */}
 	<div className='w-[3px] h-7 bg-white mx-1 rounded-full' />
@@ -193,6 +213,19 @@ export default function Att() {
 			</label>
 		</Hover>
 
+		{/* Orientation */}
+		<Hover text='Orientation'>
+			<label className={` p-1 pb-2 rounded-sm ${ori ? 'bg-green-500' : 'bg-slate-300'}`}>
+				<input 
+					type='checkbox'
+					checked={ori}
+					className='appearance-none peer'
+					onChange={ () => setOri(!ori) }
+				/>
+				<RiFilePaper2Line  className='w-fit inline text-[25px] text-stone-500 peer-checked:text-white peer-checked:rotate-90 text-align-right' /> 
+			</label>
+		</Hover>
+
 
 	</div> {/* upper contol row ends */}
 
@@ -214,7 +247,14 @@ export default function Att() {
 				</>
 				))
 			} 
-		</div> {/* Middle row ends */}
+			<div className=" absolute left-[215px] w-[235px] h-7 flex items-center rounded-sm">
+				<label className=' rounded-sm pr-1 bg-slate-300'>
+					<AiOutlineFontSize className=' inline-block text-2xl h-8' />
+					<input type="number" min='8' max='20' className='outline-none bg-transparent w-10 h-8 text-right' value={fontSize} onChange={e => setFontSize(parseInt(e.target.value))}/>
+				</label>
+			</div>
+		</div> 
+		{/* Middle row ends */}
 
 			
 			{/* bottom contol row starts */}
@@ -253,7 +293,7 @@ export default function Att() {
 
 		<div 
 		ref={printRef}
-		className='min-w-fit w-[210mm] h-[297mm]'>
+		className={`min-w-fit ${ori ? 'h-[8.3in] w-[11.7in]' : 'w-[8.3in] h-[11.7in]' } [border:dashed_1px_gray] print:border-0`}>
 
 		{/* Page Header */}
 
@@ -269,7 +309,7 @@ export default function Att() {
 			: `Year ${year}, Room(${r.split('').sort().join()})` } 
 		</h1> 
 
- 		<table className={`font-[Times] whitespace-nowrap ${isCell ? 'cursor-cell' : 'cursor-default'} selection:bg-slate-700 selection:text-white ml-5 print:ml-0`}>
+ 		<table className={`font-[Times] whitespace-nowrap ${isCell ? 'cursor-cell' : 'cursor-default'} selection:bg-slate-700 selection:text-white ml-5 print:ml-0`} style={{fontSize: fontSize+2}}>
 		<thead>
 		 <tr>
 			{isNo && <th className="border border-black">No</th>}
@@ -308,7 +348,7 @@ export default function Att() {
 					.map((i) => {	
 						c++;
 						return(
-							<tr key={i.id}>
+							<tr key={i.id} style={{height: rowHeight}}>
 								{isNo && <td className='border border-black px-2 '> {c} </td>}
 								{isRoll && <td className='border border-black px-2 '>
 									{i.roll != 0 ? `${romanize(Number(i.year))}-${i.roll}` : '-'}
