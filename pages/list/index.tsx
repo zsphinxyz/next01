@@ -40,7 +40,7 @@ export default function Att() {
 	const [tableHeader, setTableHeader] = useState(false)	// set Table header
 	const [ori, setOri] = useState(false)				// set Orientation
 
-	const [fontSize, setFontSize] = useState(12)		// font size
+	const [fontSize, setFontSize] = useState(14)		// font size
 
 	// const searchParams = useSearchParams();
 	// const year = searchParams?.get('all')
