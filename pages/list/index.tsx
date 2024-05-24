@@ -19,6 +19,7 @@ import {AiFillPrinter, AiOutlineColumnWidth, AiOutlineOrderedList, AiOutlineNumb
 import { useRef, useEffect, useState } from 'react';
 import ReactToPrint from "react-to-print"
 import { La_Belle_Aurore } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 // import { useRouter } from 'next/router';
 // import { useSearchParams } from 'next/navigation';
 
@@ -98,6 +99,7 @@ export default function Att() {
 	
 	return(
 		<div>
+		<Analytics/>
 
 	  {/* Controls for table */}
 		<div className='select-none bg-slate-700 p-5 sticky top-0'>
