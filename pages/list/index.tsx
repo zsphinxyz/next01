@@ -348,7 +348,7 @@ export default function Att() {
 					.map((i) => {	
 						c++;
 						return(
-							<tr key={i.id} style={{height: rowHeight}}>
+							<tr key={i.id} style={{height: rowHeight}} /*className='odd:bg-stone-200'*/>
 								{isNo && <td className='border border-black px-2 '> {c} </td>}
 								{isRoll && <td className='border border-black px-2 '>
 									{i.roll != 0 ? `${romanize(Number(i.year))}-${i.roll}` : '-'}
